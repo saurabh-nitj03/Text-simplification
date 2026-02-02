@@ -1,0 +1,407 @@
+# run_text_simplification.py
+
+# This is a single, end-to-end script that combines all the functionality
+# of the t5-text-simplication project. It handles configuration, data loading,
+# model loading, training, and evaluation in one place.
+
+import os
+import json
+import logging
+from datetime import datetime
+from typing import Dict, List, Tuple, Union
+
+import torch
+import numpy as np
+from torch.utils.data import Dataset, DataLoader
+
+# Hugging Face libraries
+from datasets import load_dataset
+from transformers import (
+    T5ForConditionalGeneration,
+    T5Tokenizer,
+    Trainer,
+    TrainingArguments,
+    PreTrainedTokenizer,
+)
+
+# Evaluation metrics
+from torchmetrics.text.rouge import ROUGEScore
+from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
+from bert_score import score as bert_score_fn
+
+
+# ==============================================================================
+# 1. CONFIGURATION
+# All settings are managed here. Update the paths to your local data and model.
+# ==============================================================================
+CONFIG = {
+    "data": {
+        # --- IMPORTANT: UPDATE THESE PATHS ---
+        "train_file": "path/to/your/train.parquet",
+        "val_file": "path/to/your/validation.parquet",
+        "test_file": "path/to/your/test.parquet",
+        # ---
+        "data_format": "parquet",  # "parquet", "csv", "json"
+        # Optional: If your columns are not named 'src' and 'trg'
+        "src_column": "source",
+        "trg_column": "target",
+    },
+    "model": {
+        # --- IMPORTANT: UPDATE THIS PATH ---
+        "local_path": "path/to/your/downloaded/t5-model",
+        # ---
+        "save_dir": "./t5_simplification_finetuned",
+        "max_input_length": 512,
+        "max_target_length": 128,
+    },
+    "training": {
+        "seed": 42,
+        "learning_rate": 5e-5,
+        "train_batch_size": 8,  # Adjust based on your GPU memory
+        "eval_batch_size": 8,
+        "gradient_accumulation_steps": 2,
+        "num_epochs": 3,
+        "weight_decay": 0.01,
+        "save_total_limit": 2,
+        "logging_steps": 100,
+        "warmup_steps": 0,
+        "fp16": torch.cuda.is_available(), # Enable mixed-precision training if a GPU is available
+        "num_workers": 2,
+    },
+    "generation": {
+        "max_length": 128,
+        "num_beams": 4,
+        "length_penalty": 2.0,
+        "early_stopping": True,
+        "batch_size": 8,
+    },
+    "evaluation": {
+        "metrics": {
+            "bleu": True,
+            "rouge": True,
+            "bert_score": True,
+        },
+        "bert_score_model": "microsoft/deberta-xlarge-mnli",
+    },
+    "logging": {
+        "level": "INFO",
+        "results_dir": "./evaluation_results",
+    },
+    "tokenizer": {
+        "prefix": "simplify: "
+    }
+}
+
+
+# ==============================================================================
+# 2. LOGGING SETUP
+# This section sets up a logger to display progress and results.
+# ==============================================================================
+def setup_logging(config: Dict):
+    """Sets up the logging configuration."""
+    log_config = config["logging"]
+    level = getattr(logging, log_config["level"].upper())
+    
+    # Create a timestamped directory for logs and results
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    results_dir = os.path.join(log_config["results_dir"], f"run_{timestamp}")
+    os.makedirs(results_dir, exist_ok=True)
+    config["run_results_dir"] = results_dir # Save for later use
+
+    log_file = os.path.join(results_dir, "run.log")
+    
+    logging.basicConfig(
+        level=level,
+        format="%(asctime)s [%(levelname)s] %(message)s",
+        handlers=[
+            logging.FileHandler(log_file),
+            logging.StreamHandler()
+        ]
+    )
+    logging.getLogger("transformers").setLevel(logging.WARNING)
+    logging.getLogger("datasets").setLevel(logging.WARNING)
+    return logging.getLogger(__name__)
+
+
+# ==============================================================================
+# 3. TOKENIZER HANDLER
+# This class wraps the Hugging Face tokenizer to prepare data for the T5 model.
+# ==============================================================================
+class TokenizerHandler:
+    """Handler for tokenization operations."""
+    def __init__(self, tokenizer: PreTrainedTokenizer, config: Dict):
+        self.tokenizer = tokenizer
+        self.model_config = config["model"]
+        self.prefix = config["tokenizer"]["prefix"]
+
+    def tokenize_batch(self, source_texts: List[str], target_texts: List[str]) -> Dict[str, torch.Tensor]:
+        """Tokenizes a batch of source and target texts for T5 training."""
+        source_texts_prefixed = [self.prefix + text for text in source_texts]
+        
+        inputs = self.tokenizer(
+            source_texts_prefixed,
+            max_length=self.model_config["max_input_length"],
+            padding="max_length",
+            truncation=True,
+            return_tensors="pt"
+        )
+        
+        with self.tokenizer.as_target_tokenizer():
+            targets = self.tokenizer(
+                target_texts,
+                max_length=self.model_config["max_target_length"],
+                padding="max_length",
+                truncation=True,
+                return_tensors="pt"
+            )
+        
+        inputs["labels"] = targets["input_ids"]
+        return inputs
+
+
+# ==============================================================================
+# 4. DATASET HANDLER
+# This class loads the local dataset and prepares it for training.
+# ==============================================================================
+class LocalTextSimplificationDataset(Dataset):
+    """Custom PyTorch Dataset for loading and tokenizing local data."""
+    def __init__(self, hf_dataset, tokenizer_handler: TokenizerHandler):
+        self.hf_dataset = hf_dataset
+        self.tokenizer_handler = tokenizer_handler
+
+    def __len__(self):
+        return len(self.hf_dataset)
+
+    def __getitem__(self, idx):
+        # Get a single source and target text
+        source_text = self.hf_dataset[idx]["src"]
+        target_text = self.hf_dataset[idx]["trg"]
+        
+        # Tokenize the single pair
+        tokenized_pair = self.tokenizer_handler.tokenize_batch([source_text], [target_text])
+        
+        # The tokenizer returns a batch, so we squeeze to remove the batch dimension
+        return {key: val.squeeze(0) for key, val in tokenized_pair.items()}
+
+def prepare_datasets(config: Dict, tokenizer: PreTrainedTokenizer) -> Tuple[Dataset, Dataset, Dataset]:
+    """Loads data from local files and prepares it for the model."""
+    data_config = config["data"]
+    
+    data_files = {
+        "train": data_config["train_file"],
+        "validation": data_config["val_file"],
+        "test": data_config["test_file"],
+    }
+    
+    # Load dataset from local parquet/csv/json files
+    hf_dataset = load_dataset(data_config["data_format"], data_files=data_files)
+    
+    # Rename columns if they are not 'src' and 'trg'
+    if data_config["src_column"] != "src":
+        hf_dataset = hf_dataset.rename_column(data_config["src_column"], "src")
+    if data_config["trg_column"] != "trg":
+        hf_dataset = hf_dataset.rename_column(data_config["trg_column"], "trg")
+        
+    tokenizer_handler = TokenizerHandler(tokenizer, config)
+    
+    train_dataset = LocalTextSimplificationDataset(hf_dataset["train"], tokenizer_handler)
+    val_dataset = LocalTextSimplificationDataset(hf_dataset["validation"], tokenizer_handler)
+    test_dataset_raw = hf_dataset["test"] # Keep the raw test set for evaluation
+    
+    return train_dataset, val_dataset, test_dataset_raw
+
+
+# ==============================================================================
+# 5. METRICS CALCULATOR
+# This class calculates BLEU, ROUGE, and BERTScore for evaluation.
+# ==============================================================================
+class MetricsCalculator:
+    """Handler for calculating and logging evaluation metrics."""
+    def __init__(self, config: Dict):
+        self.config = config
+        self.eval_config = config["evaluation"]
+        self.metrics_to_calc = self.eval_config["metrics"]
+        
+        if self.metrics_to_calc.get("rouge"):
+            self.rouge_scorer = ROUGEScore()
+        if self.metrics_to_calc.get("bleu"):
+            self.smooth_fn = SmoothingFunction().method4
+            
+    def calculate_all(self, predictions: List[str], references: List[str]) -> Dict[str, float]:
+        """Calculates all configured metrics and returns their average scores."""
+        avg_metrics = {}
+        
+        # --- BLEU Score ---
+        if self.metrics_to_calc.get("bleu"):
+            bleu_scores = [
+                sentence_bleu([ref.split()], pred.split(), smoothing_function=self.smooth_fn)
+                for pred, ref in zip(predictions, references)
+            ]
+            avg_metrics["bleu"] = np.mean(bleu_scores)
+            
+        # --- ROUGE Score ---
+        if self.metrics_to_calc.get("rouge"):
+            rouge_scores = self.rouge_scorer(predictions, references)
+            for key, val in rouge_scores.items():
+                avg_metrics[key] = val.item()
+                
+        # --- BERTScore ---
+        if self.metrics_to_calc.get("bert_score"):
+            _, _, f1 = bert_score_fn(
+                predictions,
+                references,
+                model_type=self.eval_config["bert_score_model"],
+                batch_size=self.config["generation"]["batch_size"],
+                device="cuda" if torch.cuda.is_available() else "cpu",
+                verbose=False
+            )
+            avg_metrics["bert_score_f1"] = f1.mean().item()
+            
+        return avg_metrics
+
+    def save_results(self, predictions: List[str], references: List[str], metrics: Dict):
+        """Saves predictions and final metrics to files."""
+        results_dir = self.config["run_results_dir"]
+        
+        # Save metrics
+        with open(os.path.join(results_dir, "metrics.json"), "w") as f:
+            json.dump(metrics, f, indent=2)
+            
+        # Save predictions
+        with open(os.path.join(results_dir, "predictions.txt"), "w", encoding="utf-8") as f:
+            for i, (pred, ref) in enumerate(zip(predictions, references)):
+                f.write(f"Example {i+1}:\n")
+                f.write(f"  Reference:  {ref}\n")
+                f.write(f"  Prediction: {pred}\n")
+                f.write("-" * 50 + "\n")
+
+
+# ==============================================================================
+# 6. MAIN WORKFLOW
+# This section ties everything together: setup, train, and evaluate.
+# ==============================================================================
+def main():
+    """Main end-to-end function."""
+    
+    # --- Setup ---
+    logger = setup_logging(CONFIG)
+    logger.info("Configuration and logging setup complete.")
+    
+    # Set random seed for reproducibility
+    seed = CONFIG["training"]["seed"]
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+    
+    # --- Load Model and Tokenizer from Local Path ---
+    logger.info(f"Loading model and tokenizer from local path: {CONFIG['model']['local_path']}")
+    tokenizer = T5Tokenizer.from_pretrained(CONFIG["model"]["local_path"])
+    model = T5ForConditionalGeneration.from_pretrained(CONFIG["model"]["local_path"])
+    
+    # --- Load and Prepare Datasets ---
+    logger.info("Loading and preparing datasets from local files...")
+    train_dataset, val_dataset, test_dataset_raw = prepare_datasets(CONFIG, tokenizer)
+    logger.info(f"Train dataset size: {len(train_dataset)}")
+    logger.info(f"Validation dataset size: {len(val_dataset)}")
+    logger.info(f"Test dataset size: {len(test_dataset_raw)}")
+    
+    # --- Training ---
+    logger.info("Setting up training arguments...")
+    training_args = TrainingArguments(
+        output_dir=CONFIG["model"]["save_dir"],
+        evaluation_strategy="epoch",
+        save_strategy="epoch",
+        learning_rate=float(CONFIG["training"]["learning_rate"]),
+        per_device_train_batch_size=CONFIG["training"]["train_batch_size"],
+        per_device_eval_batch_size=CONFIG["training"]["eval_batch_size"],
+        gradient_accumulation_steps=CONFIG["training"]["gradient_accumulation_steps"],
+        num_train_epochs=CONFIG["training"]["num_epochs"],
+        weight_decay=CONFIG["training"]["weight_decay"],
+        save_total_limit=CONFIG["training"]["save_total_limit"],
+        logging_dir=os.path.join(CONFIG["model"]["save_dir"], "logs"),
+        logging_steps=CONFIG["training"]["logging_steps"],
+        load_best_model_at_end=True,
+        fp16=CONFIG["training"]["fp16"],
+        dataloader_num_workers=CONFIG["training"]["num_workers"],
+        warmup_steps=CONFIG["training"]["warmup_steps"],
+        report_to="none" # Disables reporting to services like W&B
+    )
+    
+    trainer = Trainer(
+        model=model,
+        args=training_args,
+        train_dataset=train_dataset,
+        eval_dataset=val_dataset,
+        tokenizer=tokenizer
+    )
+    
+    logger.info("Starting model training...")
+    trainer.train()
+    logger.info("Training completed successfully!")
+    
+    # Save the final fine-tuned model
+    final_model_path = os.path.join(CONFIG["model"]["save_dir"], "final_checkpoint")
+    trainer.save_model(final_model_path)
+    logger.info(f"Final fine-tuned model saved to {final_model_path}")
+    
+    # --- Evaluation ---
+    logger.info("Starting evaluation on the test set...")
+    
+    # Extract source and reference texts from the raw test set
+    source_texts = test_dataset_raw["src"]
+    reference_texts = test_dataset_raw["trg"]
+    
+    # Generate predictions in batches
+    predictions = []
+    gen_config = CONFIG["generation"]
+    batch_size = gen_config["batch_size"]
+    
+    for i in range(0, len(source_texts), batch_size):
+        batch_texts = source_texts[i:i + batch_size]
+        batch_texts_prefixed = [CONFIG["tokenizer"]["prefix"] + text for text in batch_texts]
+        
+        inputs = tokenizer(
+            batch_texts_prefixed,
+            return_tensors="pt",
+            padding=True,
+            truncation=True,
+            max_length=CONFIG["model"]["max_input_length"]
+        ).to(model.device)
+        
+        with torch.no_grad():
+            outputs = model.generate(
+                **inputs,
+                max_length=gen_config["max_length"],
+                num_beams=gen_config["num_beams"],
+                length_penalty=gen_config["length_penalty"],
+                early_stopping=gen_config["early_stopping"]
+            )
+        
+        decoded_outputs = tokenizer.batch_decode(outputs, skip_special_tokens=True)
+        predictions.extend(decoded_outputs)
+        
+    logger.info("Prediction generation complete.")
+    
+    # --- Calculate and Save Metrics ---
+    logger.info("Calculating metrics...")
+    metrics_calculator = MetricsCalculator(CONFIG)
+    average_metrics = metrics_calculator.calculate_all(predictions, reference_texts)
+    
+    logger.info("\n" + "="*50)
+    logger.info("EVALUATION RESULTS")
+    logger.info("="*50)
+    for metric, score in average_metrics.items():
+        logger.info(f"  - Average {metric}: {score:.4f}")
+    logger.info("="*50)
+    
+    metrics_calculator.save_results(predictions, reference_texts, average_metrics)
+    logger.info(f"Evaluation results saved to {CONFIG['run_results_dir']}")
+    logger.info("End-to-end script finished.")
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except FileNotFoundError as e:
+        logging.error(f"A required file was not found. Please check your paths in the CONFIG section. Details: {e}")
+    except Exception as e:
+        logging.error(f"An unexpected error occurred: {e}", exc_info=True)
