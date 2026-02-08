@@ -1,0 +1,374 @@
+sentenced to 37 months in prison.
+--------------------------------------------------
+Example 144:
+Reference: The Fairmount Line is undergoing a major rehabilitation. Four new stations will be constructed in Boston. Work on a new terminus at Wachusett Station has started. The terminus is part of the Fitchburg Line.
+Prediction: The Fairmount Line is undergoing a major rehabilitation that includes the construction of four new stations in Boston, while work on a new western terminus of the Fitchburg Line at Wachusett Station has started.
+--------------------------------------------------
+Example 145:
+Reference: The Fairmount Line is undergoing a major rehabilitation. The rehab includes the construction of four new stations in Boston. It will also include work on a new western terminus of the Fitchburg Line at Wachusett Station.
+Prediction: The Fairmount Line is undergoing a major rehabilitation that includes the construction of four new stations in Boston, while work on a new western terminus of the Fitchburg Line at Wachusett Station has started.
+--------------------------------------------------
+Example 146:
+Reference: The Fairmount Line is undergoing a major rehabilitation. It includes the construction of four new stations in Boston. Work on a new western terminus of the Fitchburg Line has started. It is at Wachusett Station.
+Prediction: The Fairmount Line is undergoing a major rehabilitation that includes the construction of four new stations in Boston, while work on a new western terminus of the Fitchburg Line at Wachusett Station has started.
+--------------------------------------------------
+Example 147:
+Reference: Navigation has long been a traditional human activity on the Coral Sea. There are 10 major ports on the Queensland coast.
+Prediction: Navigation has long been a traditional human activity on the Coral Sea.
+--------------------------------------------------
+Example 148:
+Reference: Navigation has long been a traditional human activity on the Coral Sea. There are 10 major ports on the Queensland coast alone.
+Prediction: Navigation has long been a traditional human activity on the Coral Sea.
+--------------------------------------------------
+Example 149:
+Reference: Hakomi is a method for helping people transform their way of being in the world. Hakomi works with core material and changing core beliefs.
+Prediction: Hakomi is a method for helping people transform their way of being in the world through working with core material and changing core beliefs.
+--------------------------------------------------
+Example 150:
+Reference: Hakomi is a method for helping people transform their way of being in the world. It is through working with core material and changing core beliefs.
+Prediction: Hakomi is a method for helping people transform their way of being in the world through working with core material and changing core beliefs.
+--------------------------------------------------
+Example 151:
+Reference: Everett was born in Charleville, Queensland. Everett later moved to Brisbane as a teen. Everett joined a singing group.
+Prediction: Everett was born in Charleville, Queensland.
+--------------------------------------------------
+Example 152:
+Reference: Almost all of the functionality in the editor can be reconfigured using Emacs Lisp. It is a simple and easy to learn language. Changes to the Lisp code do not require the editor to be restarted or recompiled.
+Prediction: Almost all the functionality in the editor can be reconfigured using Emacs Lisp, a simple and easy to learn language, changes to the Lisp code do not require the editor to be restarted or recompiled.
+--------------------------------------------------
+Example 153:
+Reference: Almost all of the functionality in the editor can be reconfigured using Emacs Lisp. Emacs Lisp is a simple and easy to learn language. Changes to the Lisp code do not require the editor to be restarted or recompiled.
+Prediction: Almost all the functionality in the editor can be reconfigured using Emacs Lisp, a simple and easy to learn language, changes to the Lisp code do not require the editor to be restarted or recompiled.
+--------------------------------------------------
+Example 154:
+Reference: Almost all of the functionality in the editor can be reconfigured using Emacs Lisp. It is a simple and easy to learn language. Changes to the Lisp code do not require the editor to be restarted or recompiled.
+Prediction: Almost all the functionality in the editor can be reconfigured using Emacs Lisp, a simple and easy to learn language, changes to the Lisp code do not require the editor to be restarted or recompiled.
+--------------------------------------------------
+Example 155:
+Reference: Mr. Justice Sayed Zahid Hussain has taken an oath. He is a Chief Justice of the Lahore High Court.
+Prediction: Mr Justice Sayed Zahid Hussain has taken oath as a Chief Justice of the Lahore High Court.
+--------------------------------------------------
+Example 156:
+Reference: Williams was born in Lansdowne, Cape Town, South Africa. He grew up in Mitchells Plain, the coloured township established under apartheid.
+Prediction: Williams was born in Lansdowne, Cape Town, South Africa.
+--------------------------------------------------
+Example 157:
+Reference: Marques de Sousa and the deposed president departed for Rio de Janeiro to request aid. But the central government was unable to render much assistance. Rebellions and riots had broken out all over the country.
+Prediction: Marques de Sousa and the deposed president departed for Rio de Janeiro to request aid, but the central government was unable to render much assistance, as rebellions and riots had broken out all over the country.
+--------------------------------------------------
+Example 158:
+Reference: She was born in Los Angeles, California. She grew up in Garden Grove, California. She attended California State University, Fullerton.
+Prediction: She was born in Los Angeles, California.
+--------------------------------------------------
+Example 159:
+Reference: She was born in Los Angeles, California. She grew up in Garden Grove, California. She attended California State University, Fullerton.
+Prediction: She was born in Los Angeles, California.
+--------------------------------------------------
+Example 160:
+Reference: In August 2012, Beasley was shot 3 times. He drove himself to a hospital. He was released the following day.
+Prediction: In August 2012, Beasley was shot 3 times and drove himself to a hospital where he was released the following day.
+--------------------------------------------------
+Example 161:
+Reference: Beasley was shot 3 times in August 2012. He drove himself to a hospital. He was released the following day.
+Prediction: In August 2012, Beasley was shot 3 times and drove himself to a hospital where he was released the following day.
+--------------------------------------------------
+Example 162:
+Reference: Copley was born in Ingham, Queensland. Copley moved to Brisbane at a young age. Copley played his junior rugby leage for the Aspley Devils. Copley attented Wavell State High School. After high school, Copley was signed by the Brisbane Broncos.
+Prediction: Copley was born in Ingham, Queensland.
+--------------------------------------------------
+Example 163:
+Reference: Tracy was born in Cincinnati. She attended Colerain High School. Tracy has always lived in Ohio.
+Prediction: Tracy was born in Cincinnati, Ohio.
+--------------------------------------------------
+Example 164:
+Reference: Shortly after the death of his wife, Bavo heard Saint Amand, a monk, preach a sermon. This caused Bavo to decide to reform himself.
+Prediction: Shortly after the death of his wife, Bavo decided to reform himself upon hearing a sermon preached by a monk, Saint Amand.
+--------------------------------------------------
+Example 165:
+Reference: It was founded in 1999 by Anshu Gupta. Gupta left his corporate job to start the organisation. He started it in Sarita Vihar, New Delhi.
+Prediction: It was founded in 1999 by Anshu Gupta, who left his a corporate job to start the organisation in Sarita Vihar, New Delhi.
+--------------------------------------------------
+Example 166:
+Reference: The organisation was founded in 1999. It was founded by Anshu Gupta. Anshu left his corporate job to start the organisation. The organisation was founded in Sarita Vihar, New Delhi.
+Prediction: It was founded in 1999 by Anshu Gupta, who left his a corporate job to start the organisation in Sarita Vihar, New Delhi.
+--------------------------------------------------
+Example 167:
+Reference: The ferry runs from Ferry Lane in Shepperton to the south bank of the river. The bank is a short walk from Thames Street, Weybridge. The bank is situated just below Shepperton Lock. The bank is on the reach above Sunbury Lock.
+Prediction: The ferry runs from Ferry Lane in Shepperton to the south bank of the river.
+--------------------------------------------------
+Example 168:
+Reference: It contains approximately 150 young, very hot stars. The stars are many times larger and more massive than the Sun. Such stars live for only a few million years. At their end-of-life they exhaust their hydrogen fuel. The exhaustion occurs due to the stasr' extreme luminosity.
+Prediction: It contains about 150 young, very hot stars that are many times larger and more massive than the Sun.
+--------------------------------------------------
+Example 169:
+Reference: Palladio Film is an International production company. Palladio Film is based in Cologne and London. Palladio Film specializes in feature films and documentaries.
+Prediction: Palladio Film is an International production company based in Cologne and London that specializes in feature films and documentaries.
+--------------------------------------------------
+Example 170:
+Reference: Palladio Film is an International production company. It is based in Cologne and London. Palladio Film specializes in feature films and documentaries.
+Prediction: Palladio Film is an International production company based in Cologne and London that specializes in feature films and documentaries.
+--------------------------------------------------
+Example 171:
+Reference: He is and international speaker. He is also a writer. 24 of his books have been published.
+Prediction: He is an international speaker and writer, 24 of his books have been published.
+--------------------------------------------------
+Example 172:
+Reference: He is an international speaker. He is also a writer. He has had 24 of his books published.
+Prediction: He is an international speaker and writer, 24 of his books have been published.
+--------------------------------------------------
+Example 173:
+Reference: He is an international speaker. He is an international writer. He has had 24 of his books published.
+Prediction: He is an international speaker and writer, 24 of his books have been published.
+--------------------------------------------------
+Example 174:
+Reference: The Ngondoma Dam was constructed on the river in 1967. The construction occurred 67km northwest of the Kwekwe by air. It occurred 54km southwest of Kadoma by air. The dam was constructed to supply water to Empress Nickel Mine and Ngondoma Irrigation Scheme.
+Prediction: In 1967, the Ngondoma Dam was constructed on the river 67km northwest of the Kwekwe by air, and 54km southwest of Kadoma by air, to supply water to Empress Nickel Mine and Ngondoma Irrigation Scheme.
+--------------------------------------------------
+Example 175:
+Reference: Mitchum does not discredit those who have come out in the article. He praises them for their bravery. He acknowledges how coming out may not always be safe for LGBT people. LGBT is one of multiple marginalized communities.
+Prediction: Mitchum does not discredit those who have come out, still praising them for their bravery, instead he acknowledges how coming out may not always be safe for LGBT people a part of multiple marginalized communities.
+--------------------------------------------------
+Example 176:
+Reference: In the article, Mitchum does not discredit those who have come out. He is praising them for their bravery. He also acknowledges how coming out may not always be safe for LGBT people. LGBT people are a part of multiple marginalized communities.
+Prediction: Mitchum does not discredit those who have come out, still praising them for their bravery, instead he acknowledges how coming out may not always be safe for LGBT people a part of multiple marginalized communities.
+--------------------------------------------------
+Example 177:
+Reference: Most of them speak the local Oromo, Harari or Somali languages. These people are usually known as Qallu in Ethiopia.
+Prediction: But most of them speak the local Oromo, Harari or Somali languages.
+--------------------------------------------------
+Example 178:
+Reference: She was involved in a number of activities at Duke. She served as treasurer of Chi Omega sorority. She served as president of the field hockey club.
+Prediction: She was treasurer of Chi Omega sorority and as president of the field hockey club.
+--------------------------------------------------
+Example 179:
+Reference: She was involved in a number of activities at Duke. She served as treasurer of Chi Omega sorority. She also served as president of the field hockey club.
+Prediction: She was treasurer of Chi Omega sorority and as president of the field hockey club.
+--------------------------------------------------
+Example 180:
+Reference: She was involved in a number of activities at Duke. She serve as treasurer of Chi Omega sorority. She was president of the field hockey club.
+Prediction: She was treasurer of Chi Omega sorority and as president of the field hockey club.
+--------------------------------------------------
+Example 181:
+Reference: A weak tornado touched down on June 6, 2010. It damaged the Fermi 2 generator building. It forced an automatic shutdown. It left over 30,000 people without power in the area.
+Prediction: On June 6, 2010 a weak tornado touched down and damaged the Fermi 2 generator building and forced an automatic shutdown leaving over 30,000 people without power in the area.
+--------------------------------------------------
+Example 182:
+Reference: On June 6, 2010 a weak tornado touched down. It damaged the Fermi 2 generator building. This forced an automatic shutdown leaving over 30,000 people without power in the area.
+Prediction: On June 6, 2010 a weak tornado touched down and damaged the Fermi 2 generator building and forced an automatic shutdown leaving over 30,000 people without power in the area.
+--------------------------------------------------
+Example 183:
+Reference: Its definition varies among the various jurisdictions. It limits or prohibits assault weapon manufacture, importation, sale or possession. Legislative attempts are often made to change the definitions.
+Prediction: Its definition varies among the various jurisdictions limiting or prohibiting assault weapon manufacture, importation, sale, or possession, and legislative attempts are often made to change the definitions.
+--------------------------------------------------
+Example 184:
+
+
+
+Example 1:
+Reference: Together with James, she compiled crosswords. It was for several newspapers and magazines, including People. They launched their own publishing company. It was in 1978.
+Prediction: Together with James, she compiled crosswords for several newspapers and magazines, including People.
+--------------------------------------------------
+Example 2:
+Reference: Mantell was born in Bridgwater, Somerset. Mantell studied at the University of Bath.
+Prediction: Mantell was born in Bridgwater, Somerset.
+--------------------------------------------------
+Example 3:
+Reference: Mantell was born in Bridgwater, Somerset. He studied at the University of Bath.
+Prediction: Mantell was born in Bridgwater, Somerset.
+--------------------------------------------------
+Example 4:
+Reference: Referee Toby Irwin seemed oblivious to what was occurring. Irwin finally stopped the fight. By the time, Campbell collapsed to the canvas.
+Prediction: By the time Irwin finally stopped the fight, Campbell collapsed to the canvas.
+--------------------------------------------------
+Example 5:
+Reference: Yazan Halwani is a street artist. Yazan is from Beirut, Lebanon. Yazan paints murals through a combination of renewed Arabic calligraphy and portraits.
+Prediction: Yazan Halwani is a street artist from Beirut, Lebanon.
+--------------------------------------------------
+Example 6:
+Reference: The Catholic Institute of Sydney is a tertiary educational facility. It is a member institution of the Sydney College of Divinity. It delivers theological studies at both undergraduate and postgraduate qualifications. It prepares students who are studying for ordination to the priesthood in the Catholic Church.
+Prediction: The Catholic Institute of Sydney, a tertiary educational facility that is a member institution of the Sydney College of Divinity, delivers theological studies at both undergraduate and postgraduate qualifications and prepares students who are studying to the priesthood in the Catholic Church.
+--------------------------------------------------
+Example 7:
+Reference: The Catholic Institute of Sydney is a tertiary educational facility. It is a member institution of the Sydney College of Divinity. It delivers theological studies at both undergraduate and postgraduate qualifications. It prepares students who are studying for ordination to the priesthood in the Catholic Church.
+Prediction: The Catholic Institute of Sydney, a tertiary educational facility that is a member institution of the Sydney College of Divinity, delivers theological studies at both undergraduate and postgraduate qualifications and prepares students who are studying to the priesthood in the Catholic Church.
+--------------------------------------------------
+Example 8:
+Reference: The Catholic Institute of Sydney is a tertiary educational facility. It is a member institution of the Sydney College of Divinity. The institute delivers theological studies at both undergraduate and postgraduate qualifications. The institute prepares students who are studying for ordination to the priesthood in the Catholic Church.
+Prediction: The Catholic Institute of Sydney, a tertiary educational facility that is a member institution of the Sydney College of Divinity, delivers theological studies at both undergraduate and postgraduate qualifications and prepares students who are studying to the priesthood in the Catholic Church.
+--------------------------------------------------
+Example 9:
+Reference: Many men took this day as a convenient opportunity. They spent the day drinking in the local pub. As a result, the original aim of expressing respect and sympathy to women was totally lost.
+Prediction: Many men took this day as a convenient opportunity to spend the day drinking in the local pub.
+--------------------------------------------------
+Example 10:
+Reference: Two of the boatmen are hanged. Morse does not believe that they were the perpetrators.
+Prediction: Morse does not believe that they were the perpetrators.
+--------------------------------------------------
+Example 11:
+Reference: Two of the boatmen are hanged. However, Morse does not believe that they were the perpetrators.
+Prediction: Morse does not believe that they were the perpetrators.
+--------------------------------------------------
+Example 12:
+Reference: Few WikiKnights are ready on day one. Ancient scripts tell of apprentices who foolishly challenged a WikiDragon. These apprentices barely escaped to tell about their misadventure.
+Prediction: Few WikiKnights are ready on day one, ancient scripts tell of apprentices who foolishly challenged a WikiDragon.
+--------------------------------------------------
+Example 13:
+Reference: Few WikiKnights are ready on day one. Ancient scripts tell of apprentices who foolishly challenged a WikiDragon. The apprentices barely escaped to tell about their misadventure.
+Prediction: Few WikiKnights are ready on day one, ancient scripts tell of apprentices who foolishly challenged a WikiDragon.
+--------------------------------------------------
+Example 14:
+Reference: Pinocchio accidentally sets Lorenzini's theatre on fire. Afterwards, Lorenzini changes his career. Lorenzini begins luring unruly children to Pleasure Island. At Pleasure Island, the unruly children inevitably drink cursed water. The cursed water turns the children into donkeys.
+Prediction: After Pinocchio accidentally sets Lorenzinis theatre on fire, Lorenzini changes career and begins luring unruly children to pleasure island, where they inevitably drink cursed water which turns them into donkeys.
+--------------------------------------------------
+Example 15:
+Reference: She joined the adult movie industry. She was 14 years old. Before that, she worked at a salon. The salon belonged to her young auntie.
+Prediction: At 14 she joined the adult movie before that she work at the Salon of her young auntie.
+--------------------------------------------------
+Example 16:
+Reference: At 14 she joined the adult movie industry. Before that, she worked at her young auntie's salon.
+Prediction: At 14 she joined the adult movie before that she work at the Salon of her young auntie.
+--------------------------------------------------
+Example 17:
+Reference: One of her most notable projects was Tutti. Tutti was a restaurant in downtown Lafayette. It was an upstairs dining room for adults. The restaurant was a downstairs playroom for children.
+Prediction: One of her most notable projects was Tutti, a restaurant in downtown Lafayette that was an upstairs dining room for adults and a downstairs playroom for children.
+--------------------------------------------------
+Example 18:
+Reference: One of her most notable projects was Tutti. It was a restaurant in downtown Lafayette. It was an upstairs dining room for adults. It was a downstairs playroom for children.
+Prediction: One of her most notable projects was Tutti, a restaurant in downtown Lafayette that was an upstairs dining room for adults and a downstairs playroom for children.
+--------------------------------------------------
+Example 19:
+Reference: The process of implantation of medical devices is subject to complications. They are the same complications as any other invasive medical procedure. This includes infection, inflammation, and pain.
+Prediction: The process of implantation of medical devices is subject to the same complications as any other invasive medical procedure, including infection, inflammation, and pain.
+--------------------------------------------------
+Example 20:
+Reference: The process of implantation of medical devices is subject to the same complications as any other invasive medical procedure. These complications can include infection, inflammation, and pain.
+Prediction: The process of implantation of medical devices is subject to the same complications as any other invasive medical procedure, including infection, inflammation, and pain.
+--------------------------------------------------
+Example 21:
+Reference: The process of implantation of medical devices is subject to the same complications as any other invasive medical procedure. It includes infection, inflammation, and pain.
+Prediction: The process of implantation of medical devices is subject to the same complications as any other invasive medical procedure, including infection, inflammation, and pain.
+--------------------------------------------------
+Example 22:
+Reference: This upgrade will reduce cost. It will increase flexibility. Any manufactured CBC can be configured for zero to four solid boosters. But the standardized CBC will necessitate a slight performance loss. The loss is for most medium configurations.
+Prediction: This upgrade will reduce cost and increase flexibility, since any manufactured CBC can be configured for zero to four solid boosters, but the standardized CBC will necessitate a slight performance loss for most medium configurations.
+--------------------------------------------------
+Example 23:
+Reference: A Control pitcher is a pitcher. The Control pitcher issues a below-average number of bases on balls. Thereby, the Control pitcher exhibits good control of his pitches.
+Prediction: A Control pitcher is a pitcher who issuing a below average number of bases on balls.
+--------------------------------------------------
+Example 24:
+Reference: A control pitcher issues a below average number of bases on balls. A Control pitcher exhibits good control of his pitches.
+Prediction: A Control pitcher is a pitcher who issuing a below average number of bases on balls.
+--------------------------------------------------
+Example 25:
+Reference: Long Yun was an ethnic Yi General. Long Yun was later Governor of Yunnan. Long Yun was a cousin of Lu Han.
+Prediction: Long Yun was a cousin of Lu Han.
+--------------------------------------------------
+Example 26:
+Reference: Long Yun was an ethnic Yi General. Later he became Governor of Yunnan. Long Yun was a cousin of Lu Han.
+Prediction: Long Yun was a cousin of Lu Han.
+--------------------------------------------------
+Example 27:
+Reference: Carnaval music is often a song written especially for the occasion. The music is easy to dance to.
+Prediction: Carnaval music is often a song written for the occasion and is easy to dance to.
+--------------------------------------------------
+Example 28:
+Reference: Carnaval music is often a song written especially for the occasion. Carnaval music is easy to dance to.
+Prediction: Carnaval music is often a song written for the occasion and is easy to dance to.
+--------------------------------------------------
+Example 29:
+Reference: Carnaval music is often a song written especially for the occasion. It is easy to dance to.
+Prediction: Carnaval music is often a song written for the occasion and is easy to dance to.
+--------------------------------------------------
+Example 30:
+Reference: Since 2003, he has been a full professor. Since 2009, he has been the Director of the Institute for Mathematical Research. He has held both positions at ETH Zurich.
+Prediction: Since 2003 he is full professor at ETH Zurich and since 2009 he is the Director of the Institute for Mathematical Research at ETH.
+--------------------------------------------------
+Example 31:
+Reference: He has been Full Professor at ETH Zurich since 2003. He has been the Director of the Institute for Mathematical Research at ETH since 2009.
+Prediction: Since 2003 he is full professor at ETH Zurich and since 2009 he is the Director of the Institute for Mathematical Research at ETH.
+--------------------------------------------------
+Example 32:
+Reference: In 2005 the winners of the two Division Series met in the National League Championship Series. The winner of that series became the National League champion. The National League champion faced the American League champion in the 2005 World Series.
+Prediction: The winners of the two Division Series met in the 2005 National League Championship Series.
+--------------------------------------------------
+Example 33:
+Reference: The winners of the two Division Series met in the 2005 National League Championship Series. The winner of that series became the National League champion. The NL champion would then face the American League champion in the 2005 World Series.
+Prediction: The winners of the two Division Series met in the 2005 National League Championship Series.
+--------------------------------------------------
+Example 34:
+Reference: There were rumours of a few scenes of love between Alauddin and Padmini in this film. This led to protests from a Rajput caste organization called Shri Rajput Karni Sena. The members accused Bhansali of distorting history.
+Prediction: There were rumors of a few scenes of love between Alauddin and Padmini in this movie, which led to protests from a Rajput caste organization called Shri Rajput Karni Sena, whose members accused Bhansali of distorting history.
+--------------------------------------------------
+Example 35:
+Reference: Finally, I got my first computer when I was 7. It was a Windows Vista Laptop, an Inspiron 1525. Two and an half years later I got a Toshiba satellite laptop. It had Windows 7. Within a year the casing started to split.
+Prediction: Finally, I got my first computer when I was 7, a Windows Vista Laptop, inspiron 1525.
+--------------------------------------------------
+Example 36:
+Reference: Finally, I got my first computer when I was 7. It was a Windows Vista Laptop, inspiron 1525. Two and an half years later I got a toshiba satellite laptop. It was with Windows 7. Within a year the casing started to split.
+Prediction: Finally, I got my first computer when I was 7, a Windows Vista Laptop, inspiron 1525.
+--------------------------------------------------
+Example 37:
+Reference: NPAS2 is paralogous to CLOCK. CLOCK is a key protein. CLOCK is involved in the maintenance of circadian rhythms in mammals. Moreover, CLOCK's role in the brain is thought to be as a generator. CLOCK is also believed to be a maintainer of mammalian circadian rhythms.
+Prediction: Its role in the brain is thought to be as a generator and maintainer of mammalian circadian rhythms.
+--------------------------------------------------
+Example 38:
+Reference: NPAS2 is paralogous to CLOCK, a key protein involved in the maintenance of circadian rhythms in mammals. Its role in the brain is thought to be as a generator and maintainer of mammalian circadian rhythms.
+Prediction: Its role in the brain is thought to be as a generator and maintainer of mammalian circadian rhythms.
+--------------------------------------------------
+Example 39:
+Reference: NPAS2 is paralogous to CLOCK. CLOCK is a key protein involved in the maintenance of circadian rhythms in mammals. Its role in the brain is thought to be as a generator and maintainer of mammalian circadian rhythms.
+Prediction: Its role in the brain is thought to be as a generator and maintainer of mammalian circadian rhythms.
+--------------------------------------------------
+Example 40:
+Reference: Etanercept is a biologic. Biologics are subject to different laws than chemical formulations. Currently, the United States does not permit the manufacture of generic biologics.
+Prediction: Currently, the United States does not permit the manufacture of generic biologics.
+--------------------------------------------------
+Example 41:
+Reference: According to Watanabe, the Soka Gakkai has rocked established notions and hierarchies in Japan from its earliest years. This is when Makiguchi questioned the imperial system along with established institutions. These are institutions such as public education, the military, and clerical authority.
+Prediction: According to Watanabe, the Soka Gakkai has rocked established notions and hierarchies in Japan from its earliest years when Makiguchi questioned the imperial system along with established institutions such as public education, the military, and clerical authority.
+--------------------------------------------------
+Example 42:
+Reference: According to Watanabe, the Soka Gakkai has rocked established notions and hierarchies in Japan from its earliest years. Makiguchi questioned the imperial system. Makiguchi questioned established institutions such as public education, the military, and clerical authority.
+Prediction: According to Watanabe, the Soka Gakkai has rocked established notions and hierarchies in Japan from its earliest years when Makiguchi questioned the imperial system along with established institutions such as public education, the military, and clerical authority.
+--------------------------------------------------
+Example 43:
+Reference: The Awards is an exciting annual program. It was founded by Ghanaian DJ and Radio presenter, Merqury Quaye. Its creation served to foster the development of the Ghana music industry. The means for fostering this development included rewarding and celebrating radio, mobile, and club DJs.
+Prediction: The Awards is an exciting annual program founded by Ghanaian DJ and Radio presenter, Merqury Quaye.
+--------------------------------------------------
+Example 44:
+Reference: He released his results within a day. Testimony at trial suggested that there was nothing abnormal about the report taking just one day.
+Prediction: He released his results within a day, although testimony at trial suggested that there was nothing abnormal about the report taking just one day.
+--------------------------------------------------
+Example 45:
+Reference: He has opened a laboratory of ceramics in Umbria. He is operating between art and craft. He does personal exhibitions, especially in Holland. He participates in numerous collectives.
+Prediction: He has opened a laboratory of ceramics in Umbria, operating between art and craft, he does personal exhibitions, especially in Holland, and participates in numerous collectives.
+--------------------------------------------------
+Example 46:
+Reference: In 1179, Waldo and one of his disciples went to Rome. They were welcomed by Pope Alexander III and the Roman Curia.
+Prediction: In 1179 Waldo and one of his disciples went to Rome where they were welcomed by Pope Alexander III, and the Roman Curia.
+--------------------------------------------------
+Example 47:
+Reference: In 1179, Waldo and one of his disciples went to Rome. They were welcomed by Pope Alexander III and the Roman Curia.
+Prediction: In 1179 Waldo and one of his disciples went to Rome where they were welcomed by Pope Alexander III, and the Roman Curia.
+--------------------------------------------------
+Example 48:
+Reference: In 1827 the Cliff Bridge opened, improving access. It was a foretaste of ambitious plans ahead.
+Prediction: In 1827 the Cliff Bridge opened improving access and was a foretaste of ambitious plans ahead.
+--------------------------------------------------
+Example 49:
+Reference: In 1827 the Cliff Bridge opened. It improved access. It was a foretaste of ambitious plans ahead.
+Prediction: In 1827 the Cliff Bridge opened improving access and was a foretaste of ambitious plans ahead.
+--------------------------------------------------
+Example 50:
+Reference: In 1827 the Cliff Bridge opened improving access. It was a foretaste of ambitious plans ahead.
+Prediction: In 1827 the Cliff Bridge opened improving access and was a foretaste of ambitious plans ahead.
+--------------------------------------------------
+Example 51:
+Reference: The cecum is a pouchlike structure of the colon. The cecum is located at the junction of the small intestine and the large intestine.
+Prediction: Cecum is a pouchlike structure of the colon, located at the junction of the small intestine and the large intestine.
+--------------------------------------------------
+Example 52:
+Reference: The inaugural Principal was Mr Reidal. He managaed the school from 1953 to 1956. The next principal was Bill Walker. Bill Walker served from 1957 to 1959.
+Prediction: The first principal was Mr Reidal who managaed the school from 1953 to 1956.
+------
