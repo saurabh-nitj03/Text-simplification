@@ -12,6 +12,7 @@ import torch
 import torch.nn.functional as F
 from transformers import DistilBertTokenizer, DistilBertForMaskedLM
 from gensim.models import KeyedVectors
+import gensim.downloader as api
 from wordfreq import zipf_frequency
 
 # ===============================
@@ -28,12 +29,8 @@ BETA = 0.3   # weight for simplicity score
 # ===============================
 
 print("\n🔹 Loading Word2Vec (CBOW) model...")
-# Download GoogleNews-vectors-negative300.bin beforehand
-# https://code.google.com/archive/p/word2vec/
-w2v_model = KeyedVectors.load_word2vec_format(
-    "GoogleNews-vectors-negative300.bin",
-    binary=True
-)
+# This will download the model if it's not already downloaded
+w2v_model = api.load("word2vec-google-news-300")
 
 print("✔ Word2Vec loaded")
 
@@ -52,6 +49,22 @@ print("✔ DistilBERT loaded\n")
 # STEP 1: CBOW Candidate Generation
 # ===============================
 
+# def generate_cbow_candidates(word):
+#     print(f"\n🔹 Generating CBOW neighbors for: '{word}'")
+
+#     if word not in w2v_model:
+#         print("⚠ Word not in vocabulary")
+#         return []
+
+#     neighbors = w2v_model.most_similar(word, topn=TOP_CANDIDATES_CBow)
+
+#     candidates = [w for w, _ in neighbors]
+
+#     print("Top CBOW candidates:")
+#     print(candidates)
+
+#     return candidates
+
 def generate_cbow_candidates(word):
     print(f"\n🔹 Generating CBOW neighbors for: '{word}'")
 
@@ -61,12 +74,12 @@ def generate_cbow_candidates(word):
 
     neighbors = w2v_model.most_similar(word, topn=TOP_CANDIDATES_CBow)
 
-    candidates = [w for w, _ in neighbors]
+    print("\nTop CBOW candidates with similarity scores:")
+    for w, score in neighbors:
+        print(f"{w:<25} | Cosine Similarity = {score:.4f}")
 
-    print("Top CBOW candidates:")
-    print(candidates)
+    return neighbors
 
-    return candidates
 
 
 # ===============================
