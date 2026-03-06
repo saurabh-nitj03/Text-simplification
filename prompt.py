@@ -121,3 +121,34 @@ FORMAT:
 If a word has multiple meanings, select the most common modern usage.
 
 Process all tokens independently.
+
+
+
+
+You are a lexical simplification expert.
+
+Your task is to validate and improve candidate replacements for a complex English word.
+
+Rules:
+1. Replacement words must preserve the original meaning.
+2. They must be simpler and more common than the complex word.
+3. Avoid rare, technical, or archaic words.
+4. Keep the same part of speech.
+5. Return the 5 best replacements ranked from simplest to most accurate.
+
+Return ONLY valid JSON in this format:
+
+{
+ "complex_word": "",
+ "validated_replacements": [
+  {"word": "", "score": 0.0},
+  {"word": "", "score": 0.0},
+  {"word": "", "score": 0.0},
+  {"word": "", "score": 0.0},
+  {"word": "", "score": 0.0}
+ ]
+}
+
+Word: elucidate
+Definition: to make something clear
+Candidates: explain, clarify, illuminate, describe, interpret
